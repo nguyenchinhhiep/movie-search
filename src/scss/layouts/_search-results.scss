@@ -1,0 +1,26 @@
+.movie-search__wrapper {
+    img {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .search-results {
+        grid-area: results;
+        padding: 20px;
+        
+       
+
+        > h2 {
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        .movie {
+            &__list {
+                display: grid;
+                grid-gap: 10px;
+                grid-template-columns: repeat(4, minmax(200px, 1fr));
+            }
+        }
+    }
+}

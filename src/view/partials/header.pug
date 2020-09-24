@@ -1,7 +1,11 @@
 header
-    a.logo(href="#")
-        span Movie 
-        span Search
-    .search
-
-    .favorite
+    .header__inner
+        a.logo(href="#")
+            span Movie 
+            span Search
+        .search
+            input(type="text" placeholder="Search movies...")
+            span.search__icon
+                i.fas.fa-search
+        .favorite
+            i.far.fa-heart

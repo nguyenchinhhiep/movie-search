@@ -1,0 +1,12 @@
+.movie-search__wrapper {
+
+    .search-details {
+        grid-area: details;
+        padding: 20px 15px;
+
+        > h2 {
+            font-size: 16px;
+            text-align: center;
+        }
+    }
+}
