@@ -3,9 +3,9 @@ header
         a.logo(href="#")
             span Movie 
             span Search
-        .search
-            input(type="text" placeholder="Search movies...")
-            span.search__icon
+        form.search
+            input(type="text" placeholder="Search movies...").search__input
+            button(type="submit").search__icon
                 i.fas.fa-search
         .favorite
             i.far.fa-heart

@@ -1,4 +1,4 @@
-.movie-search__wrapper {
+.movie-search__layout {
 
     header {
         background-color: #fff;
@@ -21,15 +21,16 @@
             font-weight: bold;
             margin-right: 15px;
 
+
             >span:first-child {
-                color: red;
+                color: $accent;
 
             }
         }
 
         .search {
             height: 46px;
-            background-color:#f1f3f4;
+            background-color: #f1f3f4;
             border-radius: 4px;
             width: 400px;
             padding: 0 50px 0 20px;
@@ -60,7 +61,8 @@
         .favorite {
             font-size: 24px;
             text-align: right;
-            > i {
+
+            >i {
                 cursor: pointer;
             }
         }

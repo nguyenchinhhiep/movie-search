@@ -1,3 +1,4 @@
+@import "./abstracts/variables";
 //Abstracts
 @import "abstracts/__abstracts-dir";
 
@@ -11,10 +12,13 @@
 @import "layouts/__layouts-dir";
 
 // Pages
-@import "pages/_pages-dir";
+@import "pages/__pages-dir";
+
+// Partials
+@import "partials/__partials-dir";
 
 // Themes
-@import "themes/_themes-dir";
+@import "themes/__themes-dir";
 
 //Vendor
 @import "vendors/__vendors-dir";
