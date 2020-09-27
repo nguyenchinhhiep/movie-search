@@ -1,7 +1,6 @@
 .movie-search__layout {
     height: 100%;
     border: 2px solid #f4f4f6;
-    background-color: #fff;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 75px 1fr;
@@ -15,7 +14,7 @@
         overflow-y: auto;
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 40px;
+        grid-template-rows: 1fr auto;
         grid-template-areas: 'results'
             'footer';
     }

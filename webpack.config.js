@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const pug = {
     test: /\.pug$/,
@@ -33,7 +34,7 @@ const images = {
             options: {
                 name: '[name].[ext]',
                 outputPath: 'images/',
-                publicPath: 'assets/images/'
+                publicPath: 'images/'
             }
         }
 
@@ -47,7 +48,7 @@ const fonts = {
             options: {
                 name: '[name].[ext]',
                 outputPath: 'fonts/',
-                publicPath: 'assets/fonts/'
+                publicPath: 'fonts/'
             }
         }
 
@@ -73,16 +74,15 @@ module.exports = {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist')
     },
-
-    watch: true,
     module: {
-        rules: [js, pug, scss, images, fonts],
+        rules: [pug, js, scss, images, fonts],
     },
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'src/view/pages/index.pug'
         }),
+        new CleanWebpackPlugin()
     ],
     devServer: {
         inline: false,
