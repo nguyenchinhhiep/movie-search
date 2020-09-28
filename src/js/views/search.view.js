@@ -8,6 +8,10 @@ export const getInputValue = () => elements.searchInput.value;
 export const clearInput = () => {
     elements.searchInput.value = '';
 }
+
+export const clearResultTitle = () => {
+    elements.searchTitle.innerHTML = '';
+}
 export const clearResults = () => {
     elements.searchResultsList.innerHTML = '';
 }
@@ -17,7 +21,8 @@ export const clearPagination = () => {
 }
 
 const IMG_API = 'https://image.tmdb.org/t/p/w500';
-const renderMovie = (movie) => {
+
+export const renderMovie = (movie) => {
     let year = 'Unknown';
     const date = movie['release_date'];
     if (!!date) {
@@ -41,30 +46,31 @@ const renderMovie = (movie) => {
 }
 
 
-const createButtons = (page, type) => {
-    return `<button data-page="${type === 'Prev'? page - 1: page + 1}">${type}</button>`
+export const createButtons = (page, typeButton, type) => {
+    return `<button data-page="${typeButton === 'Prev'? page - 1: page + 1}" data-type="${type}">Page ${typeButton === 'Prev'? page - 1: page + 1}</button>`
 }
 
-const renderButtons = (currentPage, totalPages) => {
+export const renderButtons = (currentPage, totalPages, type) => {
     let button;
     if (currentPage === 1 && totalPages > 1) {
         // Render only next button
-        button = createButtons(currentPage, 'Next')
+        button = createButtons(currentPage, 'Next', type)
     } else if (currentPage < totalPages) {
         // Render both buttons
-        button = createButtons(currentPage, 'Prev') + createButtons(currentPage, 'Next')
-    } else if (currentPage === totalPages) {
+        button = createButtons(currentPage, 'Prev', type) + createButtons(currentPage, 'Next', type)
+    } else if (currentPage === totalPages && totalPages > 1) {
         // Render only prev button
-        button = createButtons(currentPage, 'Prev')
+        button = createButtons(currentPage, 'Prev', type)
     }
 
-    elements.pagination.insertAdjacentHTML('afterbegin', button);
+    if(!!button) elements.pagination.insertAdjacentHTML('afterbegin', button);
 }
 
-export const renderResults = (movies, totalPages, currentPage) => {
-    elements.searchTitle.textContent = `Search results`;
-    movies.forEach(movie => {
+export const renderResults = (res) => {
+    const {results, totalPages, currentPage, query, totalResults, type} = res;
+    elements.searchTitle.textContent = `Search (${query.toLowerCase()}): ${totalResults} results.`;
+    results.forEach(movie => {
         renderMovie(movie);
     });
-    renderButtons(currentPage, totalPages);
+    renderButtons(currentPage, totalPages, type);
 }
