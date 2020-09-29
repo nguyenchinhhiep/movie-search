@@ -1,11 +1,16 @@
-header
+header.ms__header
     .header__inner
         a.logo(href="#")
             span Movie 
             span Search
-        form.search
-            input(type="text" placeholder="Search movies...").search__input
-            button(type="submit").search__icon
-                i.fas.fa-search
+        .search
+            button.search__cancel
+                i.fas.fa-times
+            form
+                input(type="text" placeholder="Search movies...").search__input
+                button(type="submit").search__icon
+                    i.fas.fa-search
         .favorite
+            i.fas.fa-search
             i.far.fa-heart
+            

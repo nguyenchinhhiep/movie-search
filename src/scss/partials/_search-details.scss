@@ -1,12 +1,58 @@
-.movie-search__layout {
+.ms__layout {
 
-    .search-details {
-        grid-area: details;
-        padding: 20px 15px;
+    .ms__search-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
 
-        > h2 {
-            font-size: 16px;
-            text-align: center;
+        .movie-detail {
+
+            &__img {
+                padding: 0 15px;
+            }
+
+            &__content {
+                padding: 30px 15px;
+            }
+
+            &__title {
+                font-size: 20px;
+                font-weight: 600;
+                margin-bottom: 40px;
+            }
+
+            &__meta-info {
+                > li {
+                    display: flex;
+                    margin: 15px 0;
+                    line-height: 1.5;
+                    
+                    > label {
+                        font-size: 16px;
+                        font-weight: 500;
+                        margin-right: 10px;
+                        min-width: 110px;
+                        text-align: right;
+                    }
+
+                    >span {
+                        color: $secondary;
+                        
+                    }
+                }
+            }
+
+            &__favorite {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: rgba($color: #000000, $alpha: .2);
+                color: #fff;
+                cursor: pointer;
+                margin-top: 20px;
+            }
         }
     }
 }

@@ -8,9 +8,54 @@ import {
 } from './views/base';
 import * as searchView from './views/search.view';
 import * as movieDiscoverView from './views/movie-discover.view';
+import * as dialogView from './views/dialog.view';
 
 const state = {};
 
+
+const refreshUI = () => {
+
+    // Clear the input
+    searchView.clearInput();
+
+    // Clear the search title
+    searchView.clearResultTitle();
+
+    // Clear the search list
+    searchView.clearResults();
+
+    // Clear the pagination
+    searchView.clearPagination();
+
+    // Display loading spinner
+    renderLoader(elements.searchResult);
+}
+
+const handleHeader = () => {
+
+    const search = document.querySelector('.search');
+    const input = document.querySelector('.search__input');
+
+    document.querySelector('.header__inner .logo').addEventListener('click', () => {
+        controlMovieDiscover();
+    })
+
+    document.querySelector('.favorite .fa-search').addEventListener('click', (e) => {
+
+        search.style.display = 'flex';
+        input.focus();
+    })
+
+    document.querySelector('.search__cancel').addEventListener('click', () => {
+        search.style.display = 'none';
+    })
+}
+
+const onCloseDialog = () => {
+    elements.dialogClose.addEventListener('click', () => {
+        dialogView.closeDialog();
+    })
+}
 async function controlMovieDiscover() {
     state.movieDiscover = new MovieDiscover();
     refreshUI();
@@ -25,7 +70,9 @@ async function controlMovieDiscover() {
     removeLoader(elements.searchResult);
 }
 
+handleHeader();
 controlMovieDiscover();
+onCloseDialog();
 
 async function controlSearch() {
     const query = searchView.getInputValue();
@@ -83,25 +130,3 @@ elements.pagination.addEventListener('click', async (e) => {
 
     }
 });
-
-function refreshUI() {
-
-    // Clear the input
-    searchView.clearInput();
-
-    // Clear the search title
-    searchView.clearResultTitle();
-
-    // Clear the search list
-    searchView.clearResults();
-
-    // Clear the pagination
-    searchView.clearPagination();
-
-    // Display loading spinner
-    renderLoader(elements.searchResult);
-}
-
-document.querySelector('.header__inner .logo').addEventListener('click', () => {
-    controlMovieDiscover();
-})

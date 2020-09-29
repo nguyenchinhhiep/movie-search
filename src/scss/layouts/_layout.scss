@@ -1,19 +1,24 @@
-.movie-search__layout {
+.ms__layout {
     height: 100%;
     border: 2px solid #f4f4f6;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
     grid-template-rows: 75px 1fr;
     grid-template-areas: 'header'
         'content';
 
+    @media (max-width: 660px) {
 
-    .content {
-        grid-area: 'content';
+        & {
+            grid-template-rows: 60px 1fr;
+        }
+    }
+
+    .ms__content {
         overflow-x: hidden;
         overflow-y: auto;
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 100%;
         grid-template-rows: 1fr auto;
         grid-template-areas: 'results'
             'footer';

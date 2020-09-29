@@ -1,10 +1,13 @@
 export const elements = {
     searchForm: document.querySelector('.search'),
     searchInput: document.querySelector('.search__input'),
-    searchTitle: document.querySelector('.search-results  h2'),
+    searchTitle: document.querySelector('.ms__search-results  h2'),
     searchResultsList: document.querySelector('.movie__list'),
-    searchResult: document.querySelector('.search-results'),
-    pagination: document.querySelector('.pagination')
+    searchResult: document.querySelector('.ms__search-results'),
+    pagination: document.querySelector('.pagination'),
+    dialogContainer: document.querySelector('.dialog__container'),
+    dialogClose: document.querySelector('.dialog__close'),
+    dialogContent: document.querySelector('.dialog__content')
 }
 
 export const renderLoader = (parent) => {

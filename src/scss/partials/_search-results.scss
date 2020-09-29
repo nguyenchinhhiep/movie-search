@@ -1,4 +1,4 @@
-.movie-search__layout {
+.ms__layout {
 
     img {
         width: 100%;
@@ -6,7 +6,7 @@
         height: auto;
     }
 
-    .search-results {
+    .ms__search-results {
         position: relative;
         grid-area: results;
         padding: 20px;
@@ -30,7 +30,6 @@
 
 
             &__item {
-                flex-basis: 25%;
                 width: 25%;
                 padding: 15px;
                 display: flex;
@@ -42,6 +41,20 @@
                     & {
                         flex-basis: 33.33333333%;
                         width: 33.33333333%;
+                    }
+                }
+
+                @media(max-width: 600px) {
+                    & {
+                        flex-basis: 50%;
+                        width: 50%;
+                    }
+                }
+
+                @media(max-width: 500px) {
+                    & {
+                        flex-basis: 100%;
+                        width: 100%;
                     }
                 }
             }
