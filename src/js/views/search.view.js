@@ -1,8 +1,9 @@
 import {
     elements
 } from "./base";
-
 import noImage from "./../../assets/images/no-image.jpg";
+import {IMG_API} from './../config';
+
 
 export const getInputValue = () => elements.searchInput.value;
 export const clearInput = () => {
@@ -20,7 +21,6 @@ export const clearPagination = () => {
     elements.pagination.innerHTML = '';
 }
 
-const IMG_API = 'https://image.tmdb.org/t/p/w500';
 
 export const renderMovie = (movie) => {
     let year = 'Unknown';
@@ -32,13 +32,15 @@ export const renderMovie = (movie) => {
 
     const markup = `
         <li class="movie__item">
-            <div class="movie__image"><img
-                    src="${movie['poster_path']? IMG_API + movie['poster_path']: noImage}" alt="${movie.title}">
-            </div>
-            <div class="movie__text">
-                <h3 class="movie__name" title="${movie.title}">${movie.title}</h3>
-                <span class="movie__year">${year}</span>
-            </div>  
+            <a href="?#${movie['id']}">
+                <div class="movie__image"><img
+                        src="${movie['poster_path']? IMG_API + movie['poster_path']: noImage}" alt="${movie.title}">
+                </div>
+                <div class="movie__text">
+                    <h3 class="movie__name" title="${movie.title}">${movie.title}</h3>
+                    <span class="movie__year">${year}</span>
+                </div>
+            </a>  
         </li>
     `
     elements.searchResultsList.insertAdjacentHTML('beforeend', markup);
@@ -63,11 +65,18 @@ export const renderButtons = (currentPage, totalPages, type) => {
         button = createButtons(currentPage, 'Prev', type)
     }
 
-    if(!!button) elements.pagination.insertAdjacentHTML('afterbegin', button);
+    if (!!button) elements.pagination.insertAdjacentHTML('afterbegin', button);
 }
 
 export const renderResults = (res) => {
-    const {results, totalPages, currentPage, query, totalResults, type} = res;
+    const {
+        results,
+        totalPages,
+        currentPage,
+        query,
+        totalResults,
+        type
+    } = res;
     elements.searchTitle.textContent = `Search (${query.toLowerCase()}): ${totalResults} results.`;
     results.forEach(movie => {
         renderMovie(movie);

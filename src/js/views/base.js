@@ -7,7 +7,8 @@ export const elements = {
     pagination: document.querySelector('.pagination'),
     dialogContainer: document.querySelector('.dialog__container'),
     dialogClose: document.querySelector('.dialog__close'),
-    dialogContent: document.querySelector('.dialog__content')
+    dialogContent: document.querySelector('.dialog__content'),
+    dialogBody: document.querySelector('.dialog__body')
 }
 
 export const renderLoader = (parent) => {

@@ -2,7 +2,7 @@
 
     .ms__search-details {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 
         .movie-detail {
 
@@ -15,22 +15,31 @@
             }
 
             &__title {
-                font-size: 20px;
-                font-weight: 600;
-                margin-bottom: 40px;
+                
+                margin-bottom: 30px;
+                display: flex;
+
+                >h3 {
+                    flex-grow: 1;
+                    line-height: 1.5;
+                    font-size: 24px;
+                    font-weight: 600;
+                    align-self: flex-end;
+                }
             }
+
 
             &__meta-info {
                 > li {
                     display: flex;
                     margin: 15px 0;
                     line-height: 1.5;
+                    font-size: 14px;
                     
                     > label {
-                        font-size: 16px;
                         font-weight: 500;
                         margin-right: 10px;
-                        min-width: 110px;
+                        min-width: 126px;
                         text-align: right;
                     }
 
@@ -41,17 +50,28 @@
                 }
             }
 
+            &__website {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
             &__favorite {
+                flex-shrink: 0;
+                margin: 0 5px;
                 width: 30px;
                 height: 30px;
                 border-radius: 50%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background: rgba($color: #000000, $alpha: .2);
-                color: #fff;
+                box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.3);
+                color: $secondary !important;
                 cursor: pointer;
-                margin-top: 20px;
+
+                &.active {
+                    color: $accent !important;
+                }
             }
         }
     }

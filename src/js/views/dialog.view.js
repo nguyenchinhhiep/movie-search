@@ -7,3 +7,7 @@ export const displayDialog = () => {
 export const closeDialog = () => {
     elements.dialogContainer.classList.remove('open');
 }
+
+export const clearDialogBody = () => {
+    elements.dialogBody.innerHTML = '';
+}
