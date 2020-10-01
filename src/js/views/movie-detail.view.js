@@ -20,7 +20,7 @@ export const renderMovieDetail = (movie) => {
                         <li><label>Status:</label><span>${movie.status}</span></li>
                         <li><label>Score:</label><span style="color: #CC0000">${movie.userScore}</span></li>
                         <li><label>Release Date:</label><span>${movie.releaseDate}</span></li>
-                        <li><label>Website:</label><span class="movie-detail__website"><a href="${movie.homepage}" target="_blank"> ${movie.homepage}</a></span></li>
+                        <li><label>Website:</label><span class="movie-detail__website"><a href="${movie.homepage? movie.homepage: ''}" target="_blank"> ${movie.homepage? movie.homepage: ''}</a></span></li>
                         <li><label>Genre:</label><span>${movie.genres}</span></li>
                         <li><label>Budget:</label><span>${movie.bugdet}</span></li>
                         <li><label>Revenue:</label><span>${movie.revenue}</span></li>

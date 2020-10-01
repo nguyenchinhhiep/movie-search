@@ -12,7 +12,9 @@ import * as dialogView from './views/dialog.view';
 import {
     MovieDetail
 } from './models/movie-detail.model';
-import { renderMovieDetail } from './views/movie-detail.view';
+import {
+    renderMovieDetail
+} from './views/movie-detail.view';
 
 const state = {};
 
@@ -43,6 +45,14 @@ async function controlMovieDiscover() {
         // Hide loading spinner
         removeLoader(elements.searchResult);
 
+        // Add click event to movie item
+        document.querySelectorAll('.movie__item').forEach(item => {
+            item.addEventListener('click', () => {
+                const id = parseInt(item.dataset.id, 10);
+                controlMovieDetail(id);
+            });
+        })
+
     } catch (err) {
         alert('Something went wrong');
 
@@ -58,7 +68,7 @@ async function controlMovieDiscover() {
  */
 
 async function controlSearch() {
-    const query = searchView.getInputValue();
+    const query = searchView.getInputValue().trim();
     if (!!query) {
 
         // Create search object and add to state
@@ -76,6 +86,14 @@ async function controlSearch() {
 
             // Hide loading spinner
             removeLoader(elements.searchResult);
+
+            // Add click event to movie item
+            document.querySelectorAll('.movie__item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const id = parseInt(item.dataset.id, 10);
+                    controlMovieDetail(id);
+                });
+            })
         } catch (err) {
             alert('Something went wrong!')
 
@@ -100,23 +118,50 @@ elements.pagination.addEventListener('click', async (e) => {
         refreshUI();
         if (type === 'search') {
 
-            // Search for movies
-            await state.search.getResults(goToPage);
+            try {
+                // Search for movies
+                await state.search.getResults(goToPage);
 
-            // Render results to UI
-            searchView.renderResults(state.search);
+                // Render results to UI
+                searchView.renderResults(state.search);
 
-            // Hide loading spinner
-            removeLoader(elements.searchResult);
+                // Hide loading spinner
+                removeLoader(elements.searchResult);
+
+                // Add click event to movie item
+                document.querySelectorAll('.movie__item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const id = parseInt(item.dataset.id, 10);
+                        controlMovieDetail(id);
+                    });
+                })
+            } catch(err) {
+                alert('Something went wrong!');
+            }
+
+
         } else if (type === 'discover') {
 
-            await state.movieDiscover.getMovieDiscover(goToPage);
+            try {
+                await state.movieDiscover.getMovieDiscover(goToPage);
 
-            // Render results to UI
-            movieDiscoverView.renderMovieDiscover(state.movieDiscover);
+                // Render results to UI
+                movieDiscoverView.renderMovieDiscover(state.movieDiscover);
 
-            // Hide loading spinner
-            removeLoader(elements.searchResult);
+                // Hide loading spinner
+                removeLoader(elements.searchResult);
+
+                // Add click event to movie item
+                document.querySelectorAll('.movie__item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const id = parseInt(item.dataset.id, 10);
+                        controlMovieDetail(id);
+                    });
+                })
+            } catch (err) {
+               alert('Something went wrong!');
+            }
+
         }
 
     }
@@ -127,9 +172,8 @@ elements.pagination.addEventListener('click', async (e) => {
  * MOVIE DETAIL CONTROLLER
  */
 
-async function controlMovieDetail() {
-    // Get id from url
-    const id = window.location.hash.replace('#', '');
+async function controlMovieDetail(id) {
+
     if (id) {
         state.movieDetail = new MovieDetail(id);
 
@@ -143,8 +187,8 @@ async function controlMovieDetail() {
         dialogView.displayDialog();
 
         try {
-            
-            
+
+
             await state.movieDetail.getMovieDetail();
 
             // Render Movie Detail
@@ -164,7 +208,13 @@ async function controlMovieDetail() {
 
 }
 
-['hashchange', 'load'].forEach(event => window.addEventListener(event, controlMovieDetail));
+
+['load'].forEach(event => window.addEventListener(event, () => {
+    // Get id from url
+    const id = window.location.hash.replace('#', '');
+    controlMovieDetail(id);
+}));
+
 
 /*
  * OTHER CONTROLLERS

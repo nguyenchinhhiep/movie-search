@@ -31,11 +31,17 @@
 
             &__item {
                 width: 25%;
-                padding: 15px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
                 cursor: pointer;
+
+                > a {
+                    padding: 15px;
+                    display: flex;
+                    flex-grow: 1;
+                    flex-direction: column;
+                }
 
                 @media(max-width: 991px) {
                     & {
