@@ -67,7 +67,7 @@
                 align-items: center;
                 box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.3);
                 color: $secondary !important;
-                transition: box-shadow ease .4s;
+                transition: box-shadow, transform ease .4s;
                 cursor: pointer;
 
                 &.active {
@@ -75,6 +75,7 @@
                 }
 
                 &:hover {
+                    transform: scale(1.2);
                     box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.5);
                 }
             }

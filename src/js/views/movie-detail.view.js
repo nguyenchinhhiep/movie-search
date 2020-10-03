@@ -3,7 +3,7 @@ import { elements } from "./base";
 import noImage from "./../../assets/images/no-image.jpg";
 
 
-export const renderMovieDetail = (movie) => {
+export const renderMovieDetail = (movie, isFavorite) => {
 
 
     const markup = `
@@ -13,7 +13,7 @@ export const renderMovieDetail = (movie) => {
                 <div class="movie-detail__content">
                     <div class="movie-detail__title">
                         <h3>${movie.title}</h3><span
-                            class="movie-detail__favorite" title="Favorite"><i
+                            class="movie-detail__favorite ${isFavorite? 'active': ''}" title="Favorite"><i
                                 class="fas fa-heart"></i></span>
                     </div>
                     <ul class="movie-detail__meta-info">

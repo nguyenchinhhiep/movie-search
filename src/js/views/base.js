@@ -9,7 +9,10 @@ export const elements = {
     dialogContainer: document.querySelector('.dialog__container'),
     dialogClose: document.querySelector('.dialog__close'),
     dialogContent: document.querySelector('.dialog__content'),
-    dialogBody: document.querySelector('.dialog__body')
+    dialogBody: document.querySelector('.dialog__body'),
+    favoriteButtonHeader: document.querySelector('.favorite .fa-heart'),
+    favoriteList: document.querySelector('.favorite__list'),
+    favoriteButton: document.querySelector('.movie-detail__favorite')
 }
 
 export const renderLoader = (parent) => {

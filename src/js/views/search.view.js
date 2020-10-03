@@ -31,8 +31,8 @@ export const renderMovie = (movie) => {
     }
 
     const markup = `
-        <li class="movie__item" data-id="${movie['id']}">
-            <a href="#${movie['id']}">
+        <li class="movie__item">
+            <a href="#${movie['id']}" data-id="${movie['id']}">
                 <div class="movie__image"><img
                         src="${movie['poster_path']? IMG_API + movie['poster_path']: noImage}" alt="${movie.title}">
                 </div>

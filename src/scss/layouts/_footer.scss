@@ -1,7 +1,7 @@
 .ms__layout {
 
     .ms__footer {
-        grid-area: footer;
+        flex-shrink: 0;
         padding: 20px 15px;
         border-top: 2px solid #f4f4f6;
         text-align: center;

@@ -2,8 +2,9 @@
     &__container {
         width: 100%; /* Full width */
         height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
+        overflow-y: auto; /* Enable scroll if needed */
         background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        overflow-x: hidden;
         position: fixed;
         top: 0;
         left: 0;
@@ -19,10 +20,10 @@
     &__content {
         width: 100%;
         max-width: 900px;
-        margin: 75px auto;
+        margin: 45px auto 0;
         background: #fff;
         color: $primary;
-        min-height: 600px;
+        min-height: 400px;
         position: relative;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
         animation-name: animatetop;

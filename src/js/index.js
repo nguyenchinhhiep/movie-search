@@ -15,12 +15,21 @@ import {
 import {
     renderMovieDetail
 } from './views/movie-detail.view';
+import FavoriteListModel from './models/favorite-list.model';
+import * as favoriteView from './views/favorite.view';
+
+// PRELOADER CONTROLLER
+window.onload = function () {
+    //hide the preloader
+    document.querySelector(".preloader").style.display = "none";
+    handleHeader();
+    controlMovieDiscover();
+    handleClickEvents();
+}
 
 const state = {};
 
-handleHeader();
-controlMovieDiscover();
-onCloseDialog();
+
 
 
 
@@ -46,12 +55,12 @@ async function controlMovieDiscover() {
         removeLoader(elements.searchResult);
 
         // Add click event to movie item
-        document.querySelectorAll('.movie__item').forEach(item => {
+        document.querySelectorAll('.movie__item > a').forEach(item => {
             item.addEventListener('click', () => {
                 const id = parseInt(item.dataset.id, 10);
                 controlMovieDetail(id);
             });
-        })
+        });
 
     } catch (err) {
         alert('Something went wrong');
@@ -88,7 +97,7 @@ async function controlSearch() {
             removeLoader(elements.searchResult);
 
             // Add click event to movie item
-            document.querySelectorAll('.movie__item').forEach(item => {
+            document.querySelectorAll('.movie__item a').forEach(item => {
                 item.addEventListener('click', () => {
                     const id = parseInt(item.dataset.id, 10);
                     controlMovieDetail(id);
@@ -129,13 +138,13 @@ elements.pagination.addEventListener('click', async (e) => {
                 removeLoader(elements.searchResult);
 
                 // Add click event to movie item
-                document.querySelectorAll('.movie__item').forEach(item => {
+                document.querySelectorAll('.movie__item a').forEach(item => {
                     item.addEventListener('click', () => {
                         const id = parseInt(item.dataset.id, 10);
                         controlMovieDetail(id);
                     });
                 })
-            } catch(err) {
+            } catch (err) {
                 alert('Something went wrong!');
             }
 
@@ -152,14 +161,14 @@ elements.pagination.addEventListener('click', async (e) => {
                 removeLoader(elements.searchResult);
 
                 // Add click event to movie item
-                document.querySelectorAll('.movie__item').forEach(item => {
+                document.querySelectorAll('.movie__item a').forEach(item => {
                     item.addEventListener('click', () => {
                         const id = parseInt(item.dataset.id, 10);
                         controlMovieDetail(id);
                     });
                 })
             } catch (err) {
-               alert('Something went wrong!');
+                alert('Something went wrong!');
             }
 
         }
@@ -192,7 +201,7 @@ async function controlMovieDetail(id) {
             await state.movieDetail.getMovieDetail();
 
             // Render Movie Detail
-            renderMovieDetail(state.movieDetail);
+            renderMovieDetail(state.movieDetail, state.favoriteList.isFavorite(state.movieDetail.id));
 
             // Remove loader
             removeLoader(elements.dialogBody);
@@ -215,6 +224,72 @@ async function controlMovieDetail(id) {
     controlMovieDetail(id);
 }));
 
+
+/*
+ * FAVORITE CONTROLLER
+ */
+
+
+function controlFavorite() {
+    if (!state.favoriteList) state.favoriteList = new FavoriteListModel();
+
+    const currentID = state.movieDetail.id;
+
+    if (!state.favoriteList.isFavorite(currentID)) {
+        // Add movie to favorite list
+        const newFavorite = state.favoriteList.addFavoriteMovie(
+            currentID,
+            state.movieDetail.title,
+            state.movieDetail.posterPath,
+            state.movieDetail.releaseDate
+        );
+
+        //  Toggle the favorite button
+        favoriteView.toggleFavoriteBtn(true);
+
+        // Add to favorite UI list
+        favoriteView.renderFavoriteMovie(newFavorite);
+
+        // Add click event to it
+        const el = document.querySelector(`.favorite__link[href="#${currentID}"]`);
+        el.addEventListener('click', () => {
+
+            const id = parseInt(el.dataset.id, 10);
+            controlMovieDetail(id);
+        })
+
+    } else {
+        // Remove movie from favorite list
+        state.favoriteList.deleteFavoriteMovie(currentID);
+
+        //  Toggle the favorite button
+        favoriteView.toggleFavoriteBtn(false);
+
+        // Remove to favorite UI list
+        favoriteView.deleteFavoriteMovie(currentID);
+
+    }
+
+    // Update the favorite header button
+    favoriteView.toggleFavoriteHeaderBtn(state.favoriteList.favoriteList.length);
+
+}
+
+window.addEventListener('load', () => {
+    state.favoriteList = new FavoriteListModel();
+    state.favoriteList.readStorage();
+    favoriteView.toggleFavoriteHeaderBtn(state.favoriteList.favoriteList.length);
+    state.favoriteList.favoriteList.forEach(movie => {
+        favoriteView.renderFavoriteMovie(movie);
+        // Add click event to it
+        const el = document.querySelector(`.favorite__link[href="#${movie.id}"]`);
+        el.addEventListener('click', () => {
+
+            const id = parseInt(el.dataset.id, 10);
+            controlMovieDetail(id);
+        })
+    })
+})
 
 /*
  * OTHER CONTROLLERS
@@ -257,11 +332,18 @@ function handleHeader() {
     })
 }
 
-function onCloseDialog() {
+function handleClickEvents() {
     document.addEventListener('click', (e) => {
         if (e.target.closest('.dialog__close') == elements.dialogClose || e.target == elements.dialogContainer) {
             dialogView.closeDialog();
+        } else if (e.target.classList.contains('fa-heart') && e.target.closest('.favorite')) {
+            elements.favoriteList.classList.toggle('active');
+        } else if (e.target.closest('.movie-detail__favorite')) {
+            controlFavorite();
+        } else {
+            elements.favoriteList.classList.remove('active');
         }
+
 
     })
 }
