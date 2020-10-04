@@ -1,7 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {
+    CleanWebpackPlugin
+} = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const pug = {
     test: /\.pug$/,
@@ -12,8 +15,15 @@ const scss = {
     test: /\.s[ac]ss$/i,
     use: [
         'style-loader',
+        MiniCssExtractPlugin.loader,
         {
             loader: 'css-loader',
+            options: {
+                sourceMap: true
+            }
+        },
+        {
+            loader: 'postcss-loader',
             options: {
                 sourceMap: true
             }
@@ -69,7 +79,7 @@ const js = {
 
 
 module.exports = {
-    entry: ['babel-polyfill', './src/js/index.js'],
+    entry: ['babel-polyfill', './src/js/index.js', './src/scss/main.scss'],
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist')
@@ -81,6 +91,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'src/view/pages/index.pug'
+        }),
+        new MiniCssExtractPlugin({
+            filename: "style.css"
         }),
         new CleanWebpackPlugin()
     ],

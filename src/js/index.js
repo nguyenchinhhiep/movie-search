@@ -1,4 +1,4 @@
-import './../scss/main.scss';
+// import './../scss/main.scss';
 import MovieDiscover from './models/movie-discover.model';
 import Search from './models/search.model';
 import {
