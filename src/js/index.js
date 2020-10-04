@@ -273,20 +273,49 @@ function controlFavorite() {
     // Update the favorite header button
     favoriteView.toggleFavoriteHeaderBtn(state.favoriteList.favoriteList.length);
 
+    // Update clear all the list button
+    favoriteView.toggleClearAllBtn(state.favoriteList.favoriteList.length);
+
+    // Add click event to clear all button
+    const clearAllBtn = document.querySelector('.clear-all');
+    if (clearAllBtn) clearAllBtn.addEventListener('click', () => {
+        state.favoriteList.clearFavoriteList();
+
+        // Clear favorite list
+        favoriteView.clearAllFavoriteMovie();
+
+        // Update the favorite header button
+        favoriteView.toggleFavoriteHeaderBtn(state.favoriteList.favoriteList.length);
+
+        // Update clear all the list button
+        favoriteView.toggleClearAllBtn(state.favoriteList.favoriteList.length);
+    });
+
 }
 
 window.addEventListener('load', () => {
     state.favoriteList = new FavoriteListModel();
     state.favoriteList.readStorage();
+    favoriteView.toggleClearAllBtn(state.favoriteList.favoriteList.length);
+    const clearAllBtn = document.querySelector('.clear-all');
+    if (clearAllBtn) clearAllBtn.addEventListener('click', () => {
+        state.favoriteList.clearFavoriteList();
+        // Clear favorite list
+        favoriteView.clearAllFavoriteMovie();
+
+        // Update the favorite header button
+        favoriteView.toggleFavoriteHeaderBtn(state.favoriteList.favoriteList.length);
+
+        // Update clear all the list button
+        favoriteView.toggleClearAllBtn(state.favoriteList.favoriteList.length);
+    });
     favoriteView.toggleFavoriteHeaderBtn(state.favoriteList.favoriteList.length);
     state.favoriteList.favoriteList.forEach(movie => {
         favoriteView.renderFavoriteMovie(movie);
         // Add click event to it
         const el = document.querySelector(`.favorite__link[href="#${movie.id}"]`);
         el.addEventListener('click', () => {
-
-            const id = parseInt(el.dataset.id, 10);
-            controlMovieDetail(id);
+            controlMovieDetail(+movie.id);
         })
     })
 })
@@ -337,11 +366,11 @@ function handleClickEvents() {
         if (e.target.closest('.dialog__close') == elements.dialogClose || e.target == elements.dialogContainer) {
             dialogView.closeDialog();
         } else if (e.target.classList.contains('fa-heart') && e.target.closest('.favorite')) {
-            elements.favoriteList.classList.toggle('active');
+            elements.favoriteListWrapper.classList.toggle('active');
         } else if (e.target.closest('.movie-detail__favorite')) {
             controlFavorite();
-        } else {
-            elements.favoriteList.classList.remove('active');
+        } else if (!e.target.classList.contains('clear-all')) {
+            elements.favoriteListWrapper.classList.remove('active');
         }
 
 

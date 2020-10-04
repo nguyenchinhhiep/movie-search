@@ -11,6 +11,7 @@ export const elements = {
     dialogContent: document.querySelector('.dialog__content'),
     dialogBody: document.querySelector('.dialog__body'),
     favoriteButtonHeader: document.querySelector('.favorite .fa-heart'),
+    favoriteListWrapper: document.querySelector('.favorite__list-wrapper'),
     favoriteList: document.querySelector('.favorite__list'),
     favoriteButton: document.querySelector('.movie-detail__favorite')
 }

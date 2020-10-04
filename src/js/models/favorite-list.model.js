@@ -7,25 +7,30 @@ export default class FavoriteListModel {
     addFavoriteMovie(id, title, imgURL, releaseDate) {
         const favoriteMovie = {id, title, imgURL, releaseDate};
         this.favoriteList.push(favoriteMovie);
-        this.persistDate();
+        this.persistData();
         return favoriteMovie;
     }
 
     deleteFavoriteMovie(id) {
         const index = this.favoriteList.findIndex(movie => movie.id == id);
         this.favoriteList.splice(index,1);
-        this.persistDate();
+        this.persistData();
+    }
+
+    clearFavoriteList() {
+        this.favoriteList = [];
+        this.persistData();
     }
 
     isFavorite(id) {
-        return this.favoriteList.findIndex(movie => movie.id === id) !== -1; 
+        return this.favoriteList.findIndex(movie => movie.id == id) !== -1; 
     }
 
     getNumberFavorite() {
         return this.favoriteList.length;
     }
 
-    persistDate() {
+    persistData() {
         localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList));
     }
 

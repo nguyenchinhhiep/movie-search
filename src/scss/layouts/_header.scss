@@ -17,6 +17,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo {
@@ -108,7 +109,7 @@
         .favorite {
             font-size: 24px;
             display: flex;
-            position: relative;
+       
             align-self: stretch;
 
             >i {
@@ -129,7 +130,7 @@
                 }
             }
 
-            &__list {
+            &__list-wrapper {
                 display: none;
                 flex-direction: column;
                 border-radius: 4px;
@@ -141,16 +142,55 @@
                 min-height: 100px;
                 box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.10);
                 max-height: 500px;
-                overflow-y: auto;
-                overflow-x: hidden;
+                overflow: hidden;
 
                 &.active {
                     display: flex;
                 }
+
+                @media (max-width: 350px) {
+                    width: 100%;
+                }
+
+                .clear-all {
+                    height: 50px;
+                    font-size: 15px;
+                    padding: 15px;
+                    text-align: center;
+                    display: block;
+                    cursor: pointer;
+                    color: $secondary;
+                    transition: background-color ease .4s;
+
+                    &:hover {
+                        background-color: rgba(0, 0, 0, 0.1);
+                    }
+                }
+
+            }
+
+            &__header {
+                height: 50px;
+                font-size: 14px;
+                color: $secondary;
+                padding: 10px 15px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.10);
+            }
+
+            &__list {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                max-height: calc(100% - 100px);
+                overflow-y: auto;
             }
 
             .empty-list {
                 font-size: 14px;
+                min-height: 100px;
                 color: $secondary;
                 display: flex;
                 justify-content: center;
@@ -161,7 +201,7 @@
 
             &__item {
                 transition: background-color ease .4s;
-                margin: 15px 0;
+                margin: 10px 0;
 
                 >a {
                     display: flex;

@@ -26,6 +26,22 @@ export const toggleFavoriteHeaderBtn = (num) => {
     }
 }
 
+export const toggleClearAllBtn = (length) => {
+    const clearAllBtnEl = document.querySelector('.clear-all');
+    if(length > 0 ){
+
+        if(!clearAllBtnEl) {
+            const markup = `
+                <a class="clear-all">Clear all</a>
+            `;
+
+            elements.favoriteListWrapper.insertAdjacentHTML('beforeend', markup);
+        }
+    } else {
+        if(clearAllBtnEl) clearAllBtnEl.parentElement.removeChild(clearAllBtnEl);
+    }
+}
+
 export const renderFavoriteMovie = (movie) => {
     let year;
     const date = movie['releaseDate'];
@@ -54,4 +70,8 @@ export const renderFavoriteMovie = (movie) => {
 export const deleteFavoriteMovie = (id) => {
     const el = document.querySelector(`.favorite__link[href="#${id}"]`).parentElement;
     if(el) el.parentElement.removeChild(el);
+}
+
+export const clearAllFavoriteMovie = () => {
+    elements.favoriteList.innerHTML = '';
 }
