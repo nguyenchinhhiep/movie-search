@@ -4,4 +4,4 @@ One of my very first projects when I started to learn to Frontend Web Developmen
 
 A very simple movie search app using JavaScript, HTML, CSS and Themoviedb API.
 
-[Demo](https://nguyenchinhhiep.github.io/movie-search/dist/index.html){:target="_blank"}
+[Demo](https://nguyenchinhhiep.github.io/movie-search/dist/index.html){target="_blank"}
